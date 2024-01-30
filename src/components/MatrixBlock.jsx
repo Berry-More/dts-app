@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Grid} from "@mui/material";
+import { Card, Grid } from "@mui/material";
 import HeatMap from "./MatrixBlock/HeatMap";
 import DepthProfileSlider from "./MatrixBlock/DepthProfileSlider";
 import DepthProfileFigure from "./MatrixBlock/DepthProfileFigure";
@@ -26,6 +26,14 @@ const MatrixBlock = ({ tempSliderValue, matrixData, startTime, endTime }) => {
         setTimeValue(currentTimeValue)
     }
 
+    const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+    const handleResize = () => {
+        setWindowWidth(window.window.innerWidth);
+      }
+    React.useEffect(() => {
+      window.addEventListener("resize", handleResize, false);
+    }, []);
+
     return (
         <Card sx={{ mt: 1 }}>
             <Grid
@@ -50,12 +58,14 @@ const MatrixBlock = ({ tempSliderValue, matrixData, startTime, endTime }) => {
                         endTime={ endTime }
                         timeValue={ timeValue }
                         depthValue={ depthValue }
+                        windowWidth={ windowWidth }
                     />
                 </Grid>
                 <Grid item xs={ 3 }>
                     <DepthProfileFigure 
                         timeValue={ timeValue }
                         matrixData={ matrixData }
+                        windowWidth={ windowWidth }
                     />
                 </Grid>
 
@@ -69,6 +79,7 @@ const MatrixBlock = ({ tempSliderValue, matrixData, startTime, endTime }) => {
                     <TimeProfileSlider 
                         updateTimeValue={ updateTimeValue }
                         timeRange={ [startTime.valueOf(), endTime.valueOf()] }
+                        windowWidth={ windowWidth }
                     />
                 </Grid>
                 <Grid item xs={ 3 }>
@@ -81,6 +92,7 @@ const MatrixBlock = ({ tempSliderValue, matrixData, startTime, endTime }) => {
                     <TempProfileFigure
                         depthValue={ depthValue }
                         matrixData={ matrixData }
+                        windowWidth={ windowWidth }
                     />                    
                 </Grid>
                 <Grid item xs={ 3 }>

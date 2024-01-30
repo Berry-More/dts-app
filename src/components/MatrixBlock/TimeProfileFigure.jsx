@@ -2,7 +2,7 @@ import React from 'react'
 import Plot from 'react-plotly.js'
 import { Stack } from '@mui/material'
 
-const TimeProfileFigure = ({ depthValue, matrixData }) => {
+const TimeProfileFigure = ({ depthValue, matrixData, windowWidth }) => {
     
     const array = matrixData.depth.map((x) => Math.abs(x - depthValue))
     const index = array.indexOf(Math.min(...array))
@@ -24,7 +24,8 @@ const TimeProfileFigure = ({ depthValue, matrixData }) => {
                 ]
             }
             layout={{
-                width: 1200, 
+                // width: 1200, 
+                width: 0.625 * windowWidth,
                 height: 200,
                 margin: {
                     b: 50,
@@ -44,8 +45,14 @@ const TimeProfileFigure = ({ depthValue, matrixData }) => {
                     zeroline: false,
                 },
                 plot_bgcolor: '#d9e6fa',
+                responsive: true
             }}
-            config={{responsive: true}}
+            useResizeHandler={true}
+                style={{
+                    width: '100%',
+                    height: '100%'
+                }}
+            config={{responsive: true, autosizable: true}}
         />
     </Stack>
   )

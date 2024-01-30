@@ -76,6 +76,11 @@ const Surface3D = ({ matrixData }) => {
                                     },
                                 plot_bgcolor: '#d9e6fa',
                             }}
+                            useResizeHandler={true}
+                            style={{
+                                width: '100%',
+                                height: '100%'
+                            }}
                             config={{responsive: true}}
                         />
                     </Stack>

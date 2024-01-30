@@ -2,8 +2,8 @@ import React from 'react'
 import Plot from 'react-plotly.js'
 import { Stack } from '@mui/material'
 
-const HeatMap = ({ tempSliderValue, matrixData, startTime, endTime, timeValue, depthValue }) => {
-    
+const HeatMap = ({ tempSliderValue, matrixData, startTime, endTime, timeValue, depthValue, windowWidth }) => {
+
     return (
         <Stack
             display="flex"
@@ -52,7 +52,8 @@ const HeatMap = ({ tempSliderValue, matrixData, startTime, endTime, timeValue, d
                         text: 'Thermogram 2D [C°]', 
                         x: 0,
                     },
-                    width: 1200, 
+                    // width: 1200, 
+                    width: 0.625 * windowWidth,
                     height: 650,
                     margin: {
                         b: 50,
@@ -73,8 +74,14 @@ const HeatMap = ({ tempSliderValue, matrixData, startTime, endTime, timeValue, d
                         zeroline: false
                     },
                     plot_bgcolor: '#d9e6fa',
+                    responsive: true
                 }}
-                config={{responsive: true}}
+                useResizeHandler={true}
+                style={{
+                    width: '100%',
+                    height: '100%'
+                }}
+                config={{responsive: true, autosizable: true}}
             />
         </Stack>
     )

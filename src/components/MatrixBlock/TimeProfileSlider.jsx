@@ -4,11 +4,10 @@ import { Stack, Slider } from '@mui/material';
 
 const valueLabelFormat = (value) => {
     const currentData = new Date(value)
-    //return dayjs(value - (currentData.getTimezoneOffset() * 60 * 1000)).toString()
     return dayjs(value - (currentData.getTimezoneOffset() * 60 * 1000)).format('MMM DD HH:MM')
 }
 
-const TimeProfileSlider = ({ updateTimeValue, timeRange }) => {
+const TimeProfileSlider = ({ updateTimeValue, timeRange, windowWidth }) => {
 
     const marksArray = [
         {
@@ -27,7 +26,7 @@ const TimeProfileSlider = ({ updateTimeValue, timeRange }) => {
 
     return (
         <Stack 
-            sx={{ width: 1155, ml: 7 }} 
+            sx={{ width: 0.60 * windowWidth - 10, ml: 7 }} 
             display="flex"
             justifyContent="center"
             alignItems="center"

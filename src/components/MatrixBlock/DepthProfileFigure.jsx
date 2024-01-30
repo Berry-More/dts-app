@@ -2,7 +2,7 @@ import React from 'react'
 import Plot from 'react-plotly.js'
 import { Stack } from '@mui/material'
 
-const DepthProfileFigure = ({ timeValue, matrixData }) => {
+const DepthProfileFigure = ({ timeValue, matrixData, windowWidth }) => {
     
     const array = matrixData.time.map((x) => Math.abs(x - timeValue))
     const index = array.indexOf(Math.min(...array))
@@ -29,7 +29,8 @@ const DepthProfileFigure = ({ timeValue, matrixData }) => {
                 ]
             }
             layout={{
-                width: 400, 
+                // width: 400, 
+                width: 0.2 * windowWidth,
                 height: 650,
                 title: {
                     text: 'Thermogram 1D',
@@ -52,8 +53,14 @@ const DepthProfileFigure = ({ timeValue, matrixData }) => {
                     range: [matrixData.depth[matrixData.depth.length - 1], matrixData.depth[0]]
                 },
                 plot_bgcolor: '#d9e6fa',
+                responsive: true
             }}
-            config={{responsive: true}}
+            useResizeHandler={true}
+            style={{
+                width: '100%',
+                height: '100%'
+            }}
+            config={{responsive: true, autosizable: true}}
         />
     </Stack>
   )
