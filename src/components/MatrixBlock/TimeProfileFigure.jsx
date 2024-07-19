@@ -2,18 +2,19 @@ import React from 'react'
 import Plot from 'react-plotly.js'
 import { Stack } from '@mui/material'
 
-const TimeProfileFigure = ({ depthValue, matrixData, windowWidth }) => {
+const TimeProfileFigure = ({ depthValue, matrixData, windowWidth, startTime, endTime }) => {
     
     const array = matrixData.depth.map((x) => Math.abs(x - depthValue))
     const index = array.indexOf(Math.min(...array))
 
     return (
     <Stack
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
+        display='flex'
+        justifyContent='center'
+        alignItems='center'
     >
         <Plot
+            index='TimeProfilePlot'
             data= {
                 [
                     {
@@ -24,7 +25,6 @@ const TimeProfileFigure = ({ depthValue, matrixData, windowWidth }) => {
                 ]
             }
             layout={{
-                // width: 1200, 
                 width: 0.625 * windowWidth,
                 height: 200,
                 margin: {
@@ -38,7 +38,7 @@ const TimeProfileFigure = ({ depthValue, matrixData, windowWidth }) => {
                     title: 'Date, time',
                     type: 'date',
                     zeroline: false,
-                    range: [matrixData.time[0], matrixData.time[matrixData.time.length - 1]]
+                    range: [startTime.valueOf(), endTime.valueOf()]
                 },
                 yaxis: {
                     title: 'Temperature [C°]',
@@ -52,7 +52,12 @@ const TimeProfileFigure = ({ depthValue, matrixData, windowWidth }) => {
                     width: '100%',
                     height: '100%'
                 }}
-            config={{responsive: true, autosizable: true}}
+            config={{
+                responsive: true, 
+                autosizable: true,
+                modeBarButtonsToRemove: ['resetScale2d', 'zoomIn2d', 'zoomOut2d'],
+                doubleClick: 'autosize'
+            }}
         />
     </Stack>
   )

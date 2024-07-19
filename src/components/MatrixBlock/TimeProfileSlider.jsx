@@ -3,42 +3,41 @@ import dayjs from 'dayjs';
 import { Stack, Slider } from '@mui/material';
 
 const valueLabelFormat = (value) => {
-    const currentData = new Date(value)
-    return dayjs(value - (currentData.getTimezoneOffset() * 60 * 1000)).format('MMM DD HH:MM')
+    return dayjs(value - 7 * 60 * 60 * 1000).format('MMM DD HH:mm')
 }
 
-const TimeProfileSlider = ({ updateTimeValue, timeRange, windowWidth }) => {
+const TimeProfileSlider = ({ setTimeValue, startTime, endTime, windowWidth }) => {
 
-    const marksArray = [
+    let marksArray = [
         {
-            value: timeRange[0],
-            label: valueLabelFormat(timeRange[0]),
+            value: startTime,
+            label: valueLabelFormat(startTime),
         },
         {
-            value: timeRange[0] + (timeRange[1] - timeRange[0]) / 2,
-            label: valueLabelFormat(timeRange[0] + (timeRange[1] - timeRange[0]) / 2),
+            value: startTime + (endTime - startTime) / 2,
+            label: valueLabelFormat(startTime + (endTime - startTime) / 2),
         },
         {
-            value: timeRange[1],
-            label: valueLabelFormat(timeRange[1]),
+            value: endTime,
+            label: valueLabelFormat(endTime),
         }
     ]
 
     return (
         <Stack 
             sx={{ width: 0.60 * windowWidth - 10, ml: 7 }} 
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
+            display='flex'
+            justifyContent='center'
+            alignItems='center'
         >
             <Slider
                 size='small'
-                defaultValue={ timeRange[0] }
-                valueLabelDisplay="auto"
+                defaultValue={ startTime }
+                valueLabelDisplay='auto'
                 track={ false }
-                onChangeCommitted={ (e, value) => { updateTimeValue(value) } }
-                min={ timeRange[0] }
-                max={ timeRange[1] }
+                onChangeCommitted={ (e, value) => { setTimeValue(value) } }
+                min={ startTime }
+                max={ endTime }
                 step={ 60 * 5 * 1000 }
                 valueLabelFormat={ valueLabelFormat }
                 marks={ marksArray }

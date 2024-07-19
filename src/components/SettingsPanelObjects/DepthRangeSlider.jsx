@@ -1,7 +1,7 @@
 import React from 'react';
 import Slider from "@mui/material/Slider";
 
-const DepthRangeSlider = ({ updateDepthSliderParams, depthSliderParams }) => {
+const DepthRangeSlider = ({ setDepthSliderParams, depthSliderParams }) => {
 
     if (!depthSliderParams)
     {
@@ -33,13 +33,13 @@ const DepthRangeSlider = ({ updateDepthSliderParams, depthSliderParams }) => {
     }
 
     const handleChange = (event, newValue) => {
-        updateDepthSliderParams({ value: newValue, min: depthSliderParams.min, max: depthSliderParams.max })
+        setDepthSliderParams({ value: newValue, min: depthSliderParams.min, max: depthSliderParams.max })
     };
 
     return (
         <Slider
-            size="small"
-            valueLabelDisplay="auto"
+            size='small'
+            valueLabelDisplay='auto'
             onChangeCommitted={ handleChange }
             marks={ marksArray }
             step={ 2 }

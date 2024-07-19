@@ -1,7 +1,7 @@
 import React from 'react'
 import { Stack, Slider } from '@mui/material';
 
-const DepthProfileSlider = ({ updateDepthValue, depthRange }) => {
+const DepthProfileSlider = ({ setDepthValue, depthRange }) => {
 
     const marksArray = [
         {
@@ -36,7 +36,7 @@ const DepthProfileSlider = ({ updateDepthValue, depthRange }) => {
                 orientation="vertical"
                 defaultValue={ depthRange[1] * -1 }
                 valueLabelDisplay="auto"
-                onChangeCommitted={ (e, value) => { updateDepthValue(value * -1) } }
+                onChangeCommitted={ (e, value) => { setDepthValue(value * -1) } }
                 track={ false }
                 min={ depthRange[depthRange.length - 1] * -1 }
                 max={ depthRange[0] * -1 }

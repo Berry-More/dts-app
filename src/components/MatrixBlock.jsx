@@ -4,7 +4,7 @@ import HeatMap from "./MatrixBlock/HeatMap";
 import DepthProfileSlider from "./MatrixBlock/DepthProfileSlider";
 import DepthProfileFigure from "./MatrixBlock/DepthProfileFigure";
 import TimeProfileSlider from "./MatrixBlock/TimeProfileSlider";
-import TempProfileFigure from "./MatrixBlock/TimeProfileFigure";
+import TimeProfileFigure from "./MatrixBlock/TimeProfileFigure";
 import Surface3D from "./MatrixBlock/Surface3D";
 
 const MatrixBlock = ({ tempSliderValue, matrixData, startTime, endTime }) => {
@@ -16,16 +16,11 @@ const MatrixBlock = ({ tempSliderValue, matrixData, startTime, endTime }) => {
 
     // depth value
     const [depthValue, setDepthValue] = React.useState(matrixData.depth[0])
-    const updateDepthValue = (currentDepthValue) => {
-        setDepthValue(currentDepthValue)
-    }
 
     // time value
     const [timeValue, setTimeValue] = React.useState(matrixData.time[0])
-    const updateTimeValue = (currentTimeValue) => {
-        setTimeValue(currentTimeValue)
-    }
 
+    // window width params
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
     const handleResize = () => {
         setWindowWidth(window.window.innerWidth);
@@ -39,14 +34,14 @@ const MatrixBlock = ({ tempSliderValue, matrixData, startTime, endTime }) => {
             <Grid
                 container spacing={ 2 }
                 sx={{ p: 1 }}
-                alignItems="center"
-                justifyContent="center"
+                alignItems='center'
+                justifyContent='center'
             >
                 {/* top level */}
                 <Grid item xs={ 1 }>
                     <DepthProfileSlider 
                         depthValue={ depthValue }
-                        updateDepthValue={ updateDepthValue }
+                        setDepthValue={ setDepthValue }
                         depthRange={ matrixData.depth }
                     />
                 </Grid>
@@ -77,8 +72,9 @@ const MatrixBlock = ({ tempSliderValue, matrixData, startTime, endTime }) => {
                 </Grid>
                 <Grid item xs={ 8 }>
                     <TimeProfileSlider 
-                        updateTimeValue={ updateTimeValue }
-                        timeRange={ [startTime.valueOf(), endTime.valueOf()] }
+                        setTimeValue={ setTimeValue }
+                        startTime={ startTime }
+                        endTime={ endTime }
                         windowWidth={ windowWidth }
                     />
                 </Grid>
@@ -89,9 +85,11 @@ const MatrixBlock = ({ tempSliderValue, matrixData, startTime, endTime }) => {
                 <Grid item xs={ 1 }>
                 </Grid>
                 <Grid item xs={ 8 }>
-                    <TempProfileFigure
+                    <TimeProfileFigure
                         depthValue={ depthValue }
                         matrixData={ matrixData }
+                        startTime={ startTime }
+                        endTime={ endTime }
                         windowWidth={ windowWidth }
                     />                    
                 </Grid>

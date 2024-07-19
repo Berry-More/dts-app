@@ -2,6 +2,8 @@ import React from 'react'
 import Plot from 'react-plotly.js'
 import { Stack } from '@mui/material'
 
+const getAverage = (arr) => arr.reduce((p, c) => p + c, 0) / arr.length
+
 const DepthProfileFigure = ({ timeValue, matrixData, windowWidth }) => {
     
     const array = matrixData.time.map((x) => Math.abs(x - timeValue))
@@ -12,11 +14,21 @@ const DepthProfileFigure = ({ timeValue, matrixData, windowWidth }) => {
         dataArray.push(matrixData.temp[i][index])   
     }
 
+    const xRange = [
+        Math.min(...dataArray) - getAverage(dataArray) * 0.1, 
+        Math.max(...dataArray) + getAverage(dataArray) * 0.1
+    ]
+    
+    const yRange = [
+        matrixData.depth[matrixData.depth.length - 1], 
+        matrixData.depth[0]
+    ]
+
     return (
     <Stack
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
+        display='flex'
+        justifyContent='center'
+        alignItems='center'
     >
         <Plot
             data= {
@@ -28,8 +40,7 @@ const DepthProfileFigure = ({ timeValue, matrixData, windowWidth }) => {
                     },
                 ]
             }
-            layout={{
-                // width: 400, 
+            layout={{ 
                 width: 0.2 * windowWidth,
                 height: 650,
                 title: {
@@ -46,11 +57,12 @@ const DepthProfileFigure = ({ timeValue, matrixData, windowWidth }) => {
                 xaxis: {
                     title: 'Temperature [C°]',
                     zeroline: false,
+                    range: xRange
                 },
                 yaxis: {
                     title: 'Length of cable [m]',
                     zeroline: false,
-                    range: [matrixData.depth[matrixData.depth.length - 1], matrixData.depth[0]]
+                    range: yRange
                 },
                 plot_bgcolor: '#d9e6fa',
                 responsive: true
@@ -60,7 +72,12 @@ const DepthProfileFigure = ({ timeValue, matrixData, windowWidth }) => {
                 width: '100%',
                 height: '100%'
             }}
-            config={{responsive: true, autosizable: true}}
+            config={{
+                responsive: true, 
+                autosizable: true,
+                modeBarButtonsToRemove: ['resetScale2d', 'zoomIn2d', 'zoomOut2d'],
+                doubleClick: 'autosize'
+            }}
         />
     </Stack>
   )

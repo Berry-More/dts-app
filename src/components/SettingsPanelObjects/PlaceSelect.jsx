@@ -4,10 +4,10 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 
-const PlaceSelect = ({ updatePlace, allPlaces, place }) => {
+const PlaceSelect = ({ setPlace, allPlaces, place }) => {
 
     const handleChange = (event) => {
-        updatePlace(event.target.value)
+        setPlace(event.target.value)
     };
 
     if (!place)
@@ -21,12 +21,12 @@ const PlaceSelect = ({ updatePlace, allPlaces, place }) => {
 
     return (
         <FormControl fullWidth>
-            <InputLabel id="well-name-select-label">Well name</InputLabel>
+            <InputLabel id='place-name-select-label'>Well name</InputLabel>
             <Select
-            labelId="well-name-select-label"
-            id="well-name-select"
+            labelId='place-name-select-label'
+            id='place-name-select'
             value={ place }
-            label="Well name"
+            label='Place name'
             onChange={ handleChange }
             >
                 { allPlaces.map((place) => 

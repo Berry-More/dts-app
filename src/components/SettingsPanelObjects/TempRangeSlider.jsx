@@ -1,10 +1,10 @@
 import React from 'react';
 import Slider from "@mui/material/Slider";
 
-const TempRangeSlider = ({ updateTempSliderValue }) => {
+const TempRangeSlider = ({ setTempSliderValue }) => {
 
     const handleChange = (event, newValue) => {
-        updateTempSliderValue(newValue)
+        setTempSliderValue(newValue)
     };
 
     const marks = [
@@ -32,9 +32,9 @@ const TempRangeSlider = ({ updateTempSliderValue }) => {
 
     return (
         <Slider
-            size="small"
+            size='small'
             onChangeCommitted={ handleChange }
-            valueLabelDisplay="auto"
+            valueLabelDisplay='auto'
             defaultValue={ [0, 25] }
             marks={ marks }
             min={ -20 }

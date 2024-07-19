@@ -4,13 +4,51 @@ import { Stack } from '@mui/material'
 
 const HeatMap = ({ tempSliderValue, matrixData, startTime, endTime, timeValue, depthValue, windowWidth }) => {
 
+    let layout = {
+        showlegend: false,
+        title: {
+            text: 'Thermogram 2D [C°]', 
+            x: 0,
+        },
+        width: 0.625 * windowWidth,
+        height: 650,
+        margin: {
+            b: 50,
+            t: 30,
+            r: 0,
+            l: 50,
+            pad: 0
+        },
+        xaxis: {
+            title: 'Date, time',
+            type: 'date',
+            zeroline: false,
+            range: [startTime.valueOf(), endTime.valueOf()]
+        },
+        yaxis: {
+            title: 'Length of cable [m]',
+            range: [matrixData.depth[matrixData.depth.length - 1], matrixData.depth[0]],
+            zeroline: false
+        },
+        plot_bgcolor: '#d9e6fa',
+        responsive: true
+    }
+
+    let config = {
+        responsive: true, 
+        autosizable: true,
+        modeBarButtonsToRemove: ['resetScale2d', 'zoomIn2d', 'zoomOut2d'],
+        doubleClick: 'autosize'
+    }
+    
     return (
         <Stack
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
+            display='flex'
+            justifyContent='center'
+            alignItems='center'
         >
             <Plot
+                id='Plot228'
                 data= {
                     [
                         {
@@ -38,7 +76,7 @@ const HeatMap = ({ tempSliderValue, matrixData, startTime, endTime, timeValue, d
                             line: {color: 'black', width: 0.5}
                         },
                         {
-                            x: [matrixData.time[0], matrixData.time[matrixData.time.length - 1]],
+                            x: [startTime.valueOf(), endTime.valueOf()],
                             y: [depthValue, depthValue],
                             type: 'scatter',
                             mode: 'lines',
@@ -46,42 +84,13 @@ const HeatMap = ({ tempSliderValue, matrixData, startTime, endTime, timeValue, d
                         }
                     ]
             }
-                layout={{
-                    showlegend: false,
-                    title: {
-                        text: 'Thermogram 2D [C°]', 
-                        x: 0,
-                    },
-                    // width: 1200, 
-                    width: 0.625 * windowWidth,
-                    height: 650,
-                    margin: {
-                        b: 50,
-                        t: 30,
-                        r: 0,
-                        l: 50,
-                        pad: 0
-                    },
-                    xaxis: {
-                        title: 'Date, time',
-                        type: 'date',
-                        zeroline: false,
-                        range: [startTime.valueOf(), endTime.valueOf()]
-                    },
-                    yaxis: {
-                        title: 'Length of cable [m]',
-                        range: [matrixData.depth[matrixData.depth.length - 1], matrixData.depth[0]],
-                        zeroline: false
-                    },
-                    plot_bgcolor: '#d9e6fa',
-                    responsive: true
-                }}
+                layout={ layout }
                 useResizeHandler={true}
                 style={{
                     width: '100%',
                     height: '100%'
                 }}
-                config={{responsive: true, autosizable: true}}
+                config={ config }
             />
         </Stack>
     )
