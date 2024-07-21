@@ -35,7 +35,7 @@ const TimeProfileSlider = ({ setTimeValue, startTime, endTime, windowWidth }) =>
                 defaultValue={ startTime }
                 valueLabelDisplay='auto'
                 track={ false }
-                onChangeCommitted={ (e, value) => { setTimeValue(value) } }
+                onChangeCommitted={ (e, value) => { setTimeValue(value - 6.8 * 60 * 60 * 1000) } }
                 min={ startTime }
                 max={ endTime }
                 step={ 60 * 5 * 1000 }

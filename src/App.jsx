@@ -60,8 +60,16 @@ const App = () => {
         api.get('/depth-range', { params:  paramsVal}) 
         .then((response) => 
         {
-          setDepthSliderParams({value: response.data['depth-range'], visible: response.data['depth-range'],
-                                min: response.data['depth-range'][0], max: response.data['depth-range'][1]})
+          if (!depthSliderParams)
+          {
+            setDepthSliderParams({value: response.data['depth-range'], visible: response.data['depth-range'],
+              min: response.data['depth-range'][0], max: response.data['depth-range'][1]})
+          }
+          else {
+            setDepthSliderParams({value: depthSliderParams.value, visible: depthSliderParams.visible,
+              min: response.data['depth-range'][0], max: response.data['depth-range'][1]})
+          }
+          
         })
         .catch(error => 
           {

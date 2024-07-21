@@ -23,7 +23,7 @@ const HeatMap = ({ tempSliderValue, matrixData, startTime, endTime, timeValue, d
             title: 'Date, time',
             type: 'date',
             zeroline: false,
-            range: [startTime.valueOf(), endTime.valueOf()]
+            range: [startTime.valueOf() - 6.8 * 60 * 60 * 1000, endTime.valueOf() - 6.8 * 60 * 60 * 1000]
         },
         yaxis: {
             title: 'Length of cable [m]',
@@ -76,7 +76,7 @@ const HeatMap = ({ tempSliderValue, matrixData, startTime, endTime, timeValue, d
                             line: {color: 'black', width: 0.5}
                         },
                         {
-                            x: [startTime.valueOf(), endTime.valueOf()],
+                            x: [startTime.valueOf() - 6.8 * 60 * 60 * 1000, endTime.valueOf() - 6.8 * 60 * 60 * 1000],
                             y: [depthValue, depthValue],
                             type: 'scatter',
                             mode: 'lines',
