@@ -16,6 +16,7 @@ const MatrixBlock = ({ tempSliderValue, matrixData, startTime, endTime }) => {
 
     // depth value
     const [depthValue, setDepthValue] = React.useState(matrixData.depth[0])
+    // const [depthValue, setDepthValue] = React.useState(676);
 
     // time value
     const [timeValue, setTimeValue] = React.useState(matrixData.time[0])

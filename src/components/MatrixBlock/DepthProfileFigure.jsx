@@ -2,7 +2,11 @@ import React from 'react'
 import Plot from 'react-plotly.js'
 import { Stack } from '@mui/material'
 
-const getAverage = (arr) => arr.reduce((p, c) => p + c, 0) / arr.length
+// const getDelta = (arr) => arr.reduce((p, c) => p + c, 0) / arr.length
+const getDelta = (arr) => {
+    
+    return (Math.max(...arr) - Math.min(...arr)) * 0.1
+}
 
 const DepthProfileFigure = ({ timeValue, matrixData, windowWidth }) => {
     
@@ -15,8 +19,8 @@ const DepthProfileFigure = ({ timeValue, matrixData, windowWidth }) => {
     }
 
     const xRange = [
-        Math.min(...dataArray) - getAverage(dataArray) * 0.1, 
-        Math.max(...dataArray) + getAverage(dataArray) * 0.1
+        Math.min(...dataArray) - getDelta(dataArray), 
+        Math.max(...dataArray) + getDelta(dataArray)
     ]
     
     const yRange = [

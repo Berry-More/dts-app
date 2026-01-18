@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 
 const IntervalPicker = ({ setStartTime, endTime }) => {
 
-  const [intervalStr, setIntervalStr] = React.useState('7 Days')
+  const [intervalStr, setIntervalStr] = React.useState('30 Days')
   const allIntervals = {
     '1 Hour': 60 * 60 * 1000,
     '2 Hours': 2 * 60 * 60 * 1000,

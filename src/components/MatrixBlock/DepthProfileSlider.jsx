@@ -34,7 +34,8 @@ const DepthProfileSlider = ({ setDepthValue, depthRange }) => {
             <Slider
                 size='small'
                 orientation="vertical"
-                defaultValue={ depthRange[1] * -1 }
+                // defaultValue={ depthRange[1] * -1 }
+                defaultValue={ 676 * -1 }
                 valueLabelDisplay="auto"
                 onChangeCommitted={ (e, value) => { setDepthValue(value * -1) } }
                 track={ false }

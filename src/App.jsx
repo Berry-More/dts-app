@@ -17,7 +17,7 @@ const App = () => {
   const [endTime, setEndTime] = React.useState(getNowTime());
   
   // state for Start Time
-  const [startTime, setStartTime] = React.useState(dayjs(endTime -  7 * 24 * 60 * 60 * 1000));
+  const [startTime, setStartTime] = React.useState(dayjs(endTime -  30 * 24 * 60 * 60 * 1000));
 
   // state for Place
   const [place, setPlace] = React.useState(undefined)
@@ -42,7 +42,8 @@ const App = () => {
       {
         const placeNames = response.data['places'].map((place) => place.name);
         setAllPlaces(placeNames);
-        setPlace(placeNames[0]);
+        // setPlace(placeNames[0]);
+        // setPlace('Kluchi');
       })
       .catch(error =>
       {
@@ -52,6 +53,39 @@ const App = () => {
       })
   }, [])
 
+  // effect for update Depth Range Slider (old when chosen Kluchi)
+  // React.useEffect(() => {
+  //   if (place !== undefined)
+  //     {
+  //       const paramsVal = {time_start: startTime.unix(), time_end: endTime.unix(), place_name: place}
+  //       api.get('/depth-range', { params:  paramsVal}) 
+  //       .then((response) => 
+  //       {
+  //         if (!depthSliderParams)
+  //         {
+  //           if (place === 'Kluchi') {
+  //             setDepthSliderParams({value: [600, 796], visible: [600, 796],
+  //               min: response.data['depth-range'][0], max: response.data['depth-range'][1]})
+  //           }
+  //           else {
+  //             setDepthSliderParams({value: response.data['depth-range'], visible: response.data['depth-range'],
+  //               min: response.data['depth-range'][0], max: response.data['depth-range'][1]})
+  //           }
+  //         }
+  //         else {
+  //           setDepthSliderParams({value: depthSliderParams.value, visible: depthSliderParams.visible,
+  //             min: response.data['depth-range'][0], max: response.data['depth-range'][1]})
+  //         }
+          
+  //       })
+  //       .catch(error => 
+  //         {
+  //         console.error(error)
+  //         setDepthSliderParams(undefined)
+  //       })
+  //     }
+  // }, [startTime, endTime, place])
+
   // effect for update Depth Range Slider
   React.useEffect(() => {
     if (place !== undefined)
@@ -60,16 +94,8 @@ const App = () => {
         api.get('/depth-range', { params:  paramsVal}) 
         .then((response) => 
         {
-          if (!depthSliderParams)
-          {
-            setDepthSliderParams({value: response.data['depth-range'], visible: response.data['depth-range'],
-              min: response.data['depth-range'][0], max: response.data['depth-range'][1]})
-          }
-          else {
-            setDepthSliderParams({value: depthSliderParams.value, visible: depthSliderParams.visible,
-              min: response.data['depth-range'][0], max: response.data['depth-range'][1]})
-          }
-          
+          setDepthSliderParams({value: response.data['depth-range'], visible: response.data['depth-range'],
+            min: response.data['depth-range'][0], max: response.data['depth-range'][1]})  
         })
         .catch(error => 
           {
